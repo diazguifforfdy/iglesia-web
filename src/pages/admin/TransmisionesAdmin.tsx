@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, FormEvent } from 'react'
 import {
   collection,
   query,
@@ -99,7 +99,7 @@ export default function TransmisionesAdmin() {
     setEditingId(transmision.id)
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (!formData.titulo || !formData.descripcion || !fechaInicio) {

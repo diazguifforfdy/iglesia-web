@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { db, firebaseEnabled } from '../../firebase'
 import { useAuth } from '../../context/AuthContext'
@@ -22,14 +22,16 @@ export default function CalendarAdmin() {
   const [loading, setLoading] = useState(false)
   const canEdit = role === 'admin' || role === 'editor'
 
-  useMemo(() => {
-    ;(async () => {
+  useEffect(() => {
+    (async () => {
       try {
         const firestore = db
         if (!firestore) return
         const snap = await getDoc(doc(firestore, 'config', 'links'))
         setCfg((snap.data() as LinkCfg) ?? {})
-      } catch {}
+      } catch (error) {
+        console.error('Error loading calendar links', error)
+      }
     })()
   }, [])
 
@@ -66,7 +68,7 @@ export default function CalendarAdmin() {
             <a href={cfg.zoom || '#'} target="_blank" rel="noreferrer" className="px-4 py-2 rounded bg-primary text-white">
               Zoom
             </a>
-            <a href={cfg.youtube || '#'} target="_blank" rel="noreferrer" className="px-4 py-2 rounded bg-gold text-primary">
+            <a href={cfg.youtube || '#'} target="_blank" rel="noreferrer" className="px-4 py-2 rounded bg-secondary text-primary hover:bg-secondary/90">
               YouTube
             </a>
           </div>

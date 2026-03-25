@@ -1,4 +1,4 @@
-import { useNotification, type Notification } from '../context/NotificationContext'
+import { useNotification, type AppNotification } from '../context/NotificationContext'
 
 const notificationConfig = {
   success: {
@@ -33,7 +33,7 @@ const notificationConfig = {
   }
 }
 
-function NotificationItem({ notification, onClose }: { notification: Notification; onClose: () => void }) {
+function NotificationItem({ notification, onClose }: { notification: AppNotification; onClose: () => void }) {
   const config = notificationConfig[notification.type]
 
   return (

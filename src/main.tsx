@@ -5,6 +5,7 @@ import './index.css'
 import App from './App'
 import Home from './pages/Home'
 import SobreNosotros from './pages/SobreNosotros'
+import PlanificaVisita from './pages/PlanificaVisita'
 import Multimedia from './pages/Multimedia'
 import Mensajes from './pages/Mensajes'
 import Eventos from './pages/Eventos'
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'sobre-nosotros', element: <SobreNosotros /> },
+      { path: 'planifica', element: <PlanificaVisita /> },
       { path: 'multimedia', element: <Multimedia /> },
       { path: 'mensajes', element: <Mensajes /> },
       { path: 'eventos', element: <Eventos /> },

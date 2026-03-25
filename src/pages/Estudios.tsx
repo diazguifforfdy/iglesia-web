@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { ESTUDIOS } from '../data/estudios'
-import { useAssetStatus } from '../hooks/useAssetStatus'
 import { useMemo, useState } from 'react'
 
 export default function Estudios() {
@@ -20,7 +19,7 @@ export default function Estudios() {
         <h1 className="font-display text-4xl md:text-5xl text-primary tracking-tight">
           Estudios Bíblicos y Mensajes
         </h1>
-        <div className="mx-auto mt-3 h-px w-24 bg-gold/70" />
+        <div className="mx-auto mt-3 h-px w-24 bg-secondary/70" />
         <p className="mt-3 text-gray-700 dark:text-gray-300">
           Selecciona un estudio para leerlo en línea.
         </p>
@@ -45,8 +44,7 @@ export default function Estudios() {
       ) : (
         <div className="mt-8 grid gap-6 sm:grid-cols-2 md:grid-cols-3">
           {items.map((e) => {
-            const pdfStatus = useAssetStatus(e.pdf)
-            const disabled = pdfStatus === 'missing'
+            const disabled = false
             return (
               <Link
                 key={e.slug}
@@ -69,7 +67,7 @@ export default function Estudios() {
                       className="absolute inset-0 w-full h-full object-cover"
                       loading="lazy"
                       onError={(ev) => {
-                        ;(ev.currentTarget as HTMLImageElement).style.display = 'none'
+                        (ev.currentTarget as HTMLImageElement).style.display = 'none'
                       }}
                     />
                   ) : (
@@ -96,7 +94,7 @@ export default function Estudios() {
                       {e.descripcion}
                     </p>
                   )}
-                  <p className="mt-3 text-sm text-gold">
+                  <p className="mt-3 text-sm text-secondary">
                     {disabled ? 'Disponible próximamente' : 'Leer en línea →'}
                   </p>
                 </div>

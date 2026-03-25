@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { collection, query, where, orderBy, getDocs, onSnapshot, Timestamp } from 'firebase/firestore'
+import { collection, query, where, orderBy, onSnapshot, Timestamp } from 'firebase/firestore'
 import { db, firebaseEnabled } from '../firebase'
 import { TRANSMISIONES_COLLECTION } from '../constants'
 

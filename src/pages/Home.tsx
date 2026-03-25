@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
-import { doc, getDoc, addDoc, collection, serverTimestamp, query, where, orderBy, onSnapshot, Timestamp } from 'firebase/firestore'
-import { db, firebaseEnabled } from '../firebase'
+import { useEffect, useState } from 'react'
+import { doc, getDoc, collection, query, where, orderBy, onSnapshot, Timestamp } from 'firebase/firestore'
+import { db } from '../firebase'
 import { TRANSMISIONES_COLLECTION } from '../constants'
 
 type Daily = {
@@ -48,46 +48,11 @@ const fadeUpContainer = {
 
 export default function Home() {
   const [daily, setDaily] = useState<Daily | null>(null)
-  const [links, setLinks] = useState<{ zoom?: string; youtube?: string; address?: string } | null>(null)
   const [next, setNext] = useState<{ label: string; at: Date; dayIdx: number } | null>(null)
   const [remaining, setRemaining] = useState<string>('')
   const [isLive, setIsLive] = useState<boolean>(false)
   const [liveDayIdx, setLiveDayIdx] = useState<number | null>(null)
   const [transmisiones, setTransmisiones] = useState<Transmision[]>([])
-  const now = new Date()
-  const currentMonth = now.getMonth()
-  const currentYear = now.getFullYear()
-  const monthNames = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre'
-  ]
-  const daysShort = ['L', 'M', 'X', 'J', 'V', 'S', 'D']
-  const firstDay = new Date(currentYear, currentMonth, 1).getDay() // 0=Dom
-  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
-  const offsetMonday = (firstDay + 6) % 7
-  const cells: Array<number | null> = [...Array(offsetMonday).fill(null), ...Array.from({ length: daysInMonth }, (_, i) => i + 1)]
-  const isCultoDay = (d: number) => {
-    const wd = new Date(currentYear, currentMonth, d).getDay()
-    return wd === 0 || wd === 2 || wd === 4 || wd === 6
-  }
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [sending, setSending] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [sendError, setSendError] = useState<string | null>(null)
-  const ADDRESS =
-    'Calle Vicente Rocafuerte y Gabriel García Moreno · Puerto Baquerizo Moreno – San Cristóbal – Galápagos – Ecuador'
   const ZOOM_LINKS: Record<number, string> = {
     // 0=Domingo, 1=Lunes, 2=Martes, 3=Miércoles, 4=Jueves, 5=Viernes, 6=Sábado
     2: 'https://us02web.zoom.us/j/89279915300?pwd=e2WxAqjiJOmPR3oZF35bbFentBr4am.1', // Martes (Oración)
@@ -131,7 +96,7 @@ export default function Home() {
   const today = new Date().getDate()
   const autoVerse = VERSES[(today - 1) % VERSES.length]
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       try {
         if (!db) return
         const snap = await getDoc(doc(db, 'versiculos', 'diario'))
@@ -142,17 +107,6 @@ export default function Home() {
     })()
   }, [])
 
-  useMemo(() => {
-    ;(async () => {
-      try {
-        if (!db) return
-        const snap = await getDoc(doc(db, 'config', 'links'))
-        setLinks((snap.data() as { zoom?: string; youtube?: string; address?: string }) ?? null)
-      } catch {
-        setLinks(null)
-      }
-    })()
-  }, [])
 
   useEffect(() => {
     const schedule = [
@@ -241,32 +195,6 @@ export default function Home() {
     })
     return unsubscribe
   }, [])
-
-  const submitPrayer = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSending(true)
-    setSent(false)
-    setSendError(null)
-    try {
-      if (!firebaseEnabled || !db) {
-        throw new Error('Servicio no disponible')
-      }
-      await addDoc(collection(db, 'oraciones'), {
-        nombre: name || null,
-        email: email || null,
-        mensaje: message,
-        createdAt: serverTimestamp()
-      })
-      setSent(true)
-      setName('')
-      setEmail('')
-      setMessage('')
-    } catch (err) {
-      setSendError('No se pudo enviar tu petición. Inténtalo más tarde.')
-    } finally {
-      setSending(false)
-    }
-  }
 
   return (
     <div>

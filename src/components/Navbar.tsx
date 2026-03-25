@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle'
 const links = [
   { to: '/', label: 'Inicio' },
   { to: '/sobre-nosotros', label: 'Sobre nosotros' },
+  { to: '/planifica', label: 'Planifica tu visita' },
   { to: '/transmisiones', label: 'Transmisiones' },
   { to: '/eventos', label: 'Eventos' },
   { to: '/oracion', label: 'Oración' },
@@ -33,7 +34,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-950/70 backdrop-blur border-b border-white/20 dark:border-gray-800">
       <div className="container flex items-center justify-between py-3">
         <Link to="/" className="font-semibold tracking-wide">
-          <span className="text-gold">Iglesia</span> Luz y Vida de Dios
+          <span className="text-secondary">Iglesia</span> Luz y Vida de Dios
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {links.map((l) => (
@@ -41,8 +42,8 @@ export default function Navbar() {
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `text-sm hover:text-gold ${
-                  isActive ? 'text-gold' : 'text-gray-700 dark:text-gray-300'
+                `text-sm hover:text-accent ${
+                  isActive ? 'text-secondary' : 'text-gray-700 dark:text-gray-300'
                 }`
               }
             >
@@ -53,7 +54,7 @@ export default function Navbar() {
           <div className="relative">
             <button
               onClick={() => setResourcesOpen(v => !v)}
-              className="flex items-center gap-1 text-sm hover:text-gold text-gray-700 dark:text-gray-300 focus:outline-none"
+              className="flex items-center gap-1 text-sm hover:text-accent text-gray-700 dark:text-gray-300 focus:outline-none"
               aria-expanded={resourcesOpen}
             >
               Recursos
@@ -78,8 +79,8 @@ export default function Navbar() {
                   onClick={() => setResourcesOpen(false)}
                   className={({ isActive }) =>
                     `block px-4 py-2 text-sm ${
-                      isActive ? 'text-gold' : 'text-gray-700 dark:text-gray-200'
-                    } hover:bg-sky-100 dark:hover:bg-sky-900/40 hover:text-sky-800 dark:hover:text-sky-200 transition`
+                      isActive ? 'text-secondary' : 'text-gray-700 dark:text-gray-200'
+                    } hover:bg-secondary/10 dark:hover:bg-secondary/20 hover:text-accent transition`
                   }
                 >
                   {r.label}

@@ -39,7 +39,7 @@ export default function HeroSpiritual() {
           {/* Verso del día */}
           <div className="max-w-2xl mx-auto mb-10 p-8 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
             <p className="text-white/90 text-lg font-light italic mb-3 leading-relaxed">
-              "{dailyVerse.texto}"
+              &quot;{dailyVerse.texto}&quot;
             </p>
             <p className="text-white/60 text-sm font-light">
               {dailyVerse.referencia}

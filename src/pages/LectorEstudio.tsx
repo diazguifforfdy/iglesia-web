@@ -4,7 +4,7 @@ import { ESTUDIOS } from '../data/estudios'
 import { useAssetStatus } from '../hooks/useAssetStatus'
 import '@react-pdf-viewer/core/lib/styles/index.css'
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'
-import { Worker, Viewer } from '@react-pdf-viewer/core'
+import { Worker as PdfWorker, Viewer } from '@react-pdf-viewer/core'
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'
 
 export default function LectorEstudio() {
@@ -14,6 +14,9 @@ export default function LectorEstudio() {
     () => ESTUDIOS.find((e) => e.slug.toLowerCase() === (slug || '').toLowerCase()),
     [slug]
   )
+
+  const pdfUrl = `${window.location.origin}/docs/aguila-blanca.pdf`
+  const pdfStatus = useAssetStatus(pdfUrl)
 
   if (!estudio) {
     return (
@@ -26,8 +29,6 @@ export default function LectorEstudio() {
     )
   }
 
-  const pdfUrl = `${window.location.origin}/docs/aguila-blanca.pdf`
-  const pdfStatus = useAssetStatus(pdfUrl)
   const layout = defaultLayoutPlugin({
     renderToolbar: (Toolbar) => (
       <Toolbar>
@@ -51,7 +52,7 @@ export default function LectorEstudio() {
         <div className="mb-3">
           <button
             onClick={() => navigate('/estudios')}
-            className="text-sm text-white hover:text-gold transition"
+            className="text-sm text-white hover:text-accent transition"
             aria-label="Volver a Estudios"
           >
             ← Volver a Estudios
@@ -60,7 +61,7 @@ export default function LectorEstudio() {
         <h1 className="text-3xl md:text-4xl font-display tracking-tight text-center">
           {estudio.titulo}
         </h1>
-        <div className="mx-auto mt-2 h-px w-20 bg-gold/70" />
+        <div className="mx-auto mt-2 h-px w-20 bg-secondary/70" />
         {estudio.descripcion && (
           <p className="mt-1 text-sm text-gray-300">{estudio.descripcion}</p>
         )}
@@ -73,17 +74,17 @@ export default function LectorEstudio() {
         ) : (
           <div className="mt-6 rounded-xl overflow-hidden bg-[#121212] border border-white/10">
             <div className="w-full py-4">
-              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+              <PdfWorker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                 <div className="mx-auto w-full max-w-4xl">
                   <Viewer fileUrl="/docs/aguila-blanca.pdf" plugins={[layout]} theme={{ theme: 'dark' }} />
                 </div>
-              </Worker>
+              </PdfWorker>
             </div>
           </div>
         )}
         <div className="mt-4 flex items-center justify-between">
           <div className="text-right">
-            <a href={pdfUrl} target="_blank" rel="noreferrer" className="text-sm text-gray-300 hover:text-gold">
+            <a href={pdfUrl} target="_blank" rel="noreferrer" className="text-sm text-gray-300 hover:text-accent">
               Abrir en pestaña nueva
             </a>
             <div className="mt-1">

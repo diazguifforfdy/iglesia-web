@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, FormEvent } from 'react'
 import { 
   addDoc, 
   collection, 
@@ -50,7 +50,7 @@ export default function Oracion() {
     return () => unsubscribe()
   }, [])
 
-  const submitPrayer = async (e: React.FormEvent) => {
+  const submitPrayer = async (e: FormEvent) => {
     e.preventDefault()
     setSending(true)
 
@@ -221,7 +221,7 @@ export default function Oracion() {
         {/* Mensaje de inspiración */}
         <div className="mt-12 text-center p-6 rounded-lg bg-gradient-to-r from-amber-50/50 to-orange-50/50 dark:from-amber-950/20 dark:to-orange-950/20 border border-amber-100/30 dark:border-amber-900/30">
           <p className="text-gray-600 dark:text-gray-400 font-light italic text-sm">
-            "Por nada estén ansiosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego con acción de gracias." — Filipenses 4:6
+            &quot;Por nada estén ansiosos, sino sean conocidas vuestras peticiones delante de Dios en toda oración y ruego con acción de gracias.&quot; — Filipenses 4:6
           </p>
         </div>
 

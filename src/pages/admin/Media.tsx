@@ -63,7 +63,7 @@ export default function MediaAdmin() {
             className="w-full"
           />
         </div>
-        <button onClick={upload} disabled={loading || !file} className="mt-4 px-4 py-2 rounded bg-gold text-primary">
+        <button onClick={upload} disabled={loading || !file} className="mt-4 px-4 py-2 rounded bg-secondary text-primary hover:bg-secondary/90">
           Subir
         </button>
         <p className="mt-2 text-sm text-gray-500">Los archivos se almacenan en Firebase Storage y el registro en Firestore.</p>

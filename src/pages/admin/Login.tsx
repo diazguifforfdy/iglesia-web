@@ -66,7 +66,7 @@ export default function AdminLogin() {
           <button disabled={loading} className="px-4 py-2 rounded bg-primary text-white">
             Entrar
           </button>
-          <button type="button" onClick={onReset} className="text-sm text-gold">
+          <button type="button" onClick={onReset} className="text-sm text-secondary">
             Olvidé mi contraseña
           </button>
         </div>

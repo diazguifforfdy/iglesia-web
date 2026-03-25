@@ -13,7 +13,7 @@ type DonacionesCfg = {
 export default function Donaciones() {
   const [cfg, setCfg] = useState<DonacionesCfg | null>(null)
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (!db) return
       try {
         const snap = await getDoc(doc(db, 'config', 'donaciones'))
@@ -30,12 +30,12 @@ export default function Donaciones() {
         <h1 className="text-3xl font-bold text-primary text-center">Donaciones</h1>
         {cfg ? (
           <div className="mt-6 space-y-2 text-center">
-            {cfg.nota && <p className="text-gold">{cfg.nota}</p>}
+            {cfg.nota && <p className="text-secondary">{cfg.nota}</p>}
             {cfg.banco && <p className="text-gray-700 dark:text-gray-300">Banco: {cfg.banco}</p>}
             {cfg.cuenta && <p className="text-gray-700 dark:text-gray-300">Cuenta/CCI: {cfg.cuenta}</p>}
             {cfg.titular && <p className="text-gray-700 dark:text-gray-300">Titular: {cfg.titular}</p>}
             {cfg.enlace && (
-              <a href={cfg.enlace} target="_blank" rel="noreferrer" className="inline-block mt-4 px-5 py-3 rounded bg-gold text-primary">
+              <a href={cfg.enlace} target="_blank" rel="noreferrer" className="inline-block mt-4 px-5 py-3 rounded bg-secondary text-primary hover:bg-secondary/90">
                 Donar en línea
               </a>
             )}

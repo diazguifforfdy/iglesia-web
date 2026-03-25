@@ -20,10 +20,10 @@ export default function ErrorBoundary() {
       <h1 className="text-3xl font-display text-primary">{title}</h1>
       <p className="mt-2 text-gray-600">{message}</p>
       <div className="mt-6 flex gap-4">
-        <Link to="/" className="text-gold hover:underline">
+        <Link to="/" className="text-secondary hover:underline">
           Ir al inicio
         </Link>
-        <Link to="/estudios" className="text-gold hover:underline">
+        <Link to="/estudios" className="text-secondary hover:underline">
           Ir a Estudios
         </Link>
       </div>

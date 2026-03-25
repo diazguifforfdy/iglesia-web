@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 
-export interface Notification {
+export interface AppNotification {
   id: string
   type: 'success' | 'error' | 'info' | 'warning' | 'transmision'
   message: string
@@ -13,19 +13,25 @@ export interface Notification {
 }
 
 interface NotificationContextType {
-  notifications: Notification[]
-  addNotification: (notification: Omit<Notification, 'id'>) => void
+  notifications: AppNotification[]
+  // eslint-disable-next-line no-unused-vars
+  addNotification: (notification: Omit<AppNotification, 'id'>) => void
+  // eslint-disable-next-line no-unused-vars
   removeNotification: (id: string) => void
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
 
-export function NotificationProvider({ children }: { children: React.ReactNode }) {
-  const [notifications, setNotifications] = useState<Notification[]>([])
+export function NotificationProvider({ children }: { children: ReactNode }) {
+  const [notifications, setNotifications] = useState<AppNotification[]>([])
 
-  const addNotification = useCallback((notification: Omit<Notification, 'id'>) => {
+  const removeNotification = useCallback((id: string) => {
+    setNotifications(prev => prev.filter(n => n.id !== id))
+  }, [])
+
+  const addNotification = useCallback((notification: Omit<AppNotification, 'id'>) => {
     const id = Math.random().toString(36).substr(2, 9)
-    const newNotification: Notification = { ...notification, id }
+    const newNotification: AppNotification = { ...notification, id }
 
     setNotifications(prev => [...prev, newNotification])
 
@@ -37,11 +43,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
       )
       return () => clearTimeout(timer)
     }
-  }, [])
-
-  const removeNotification = useCallback((id: string) => {
-    setNotifications(prev => prev.filter(n => n.id !== id))
-  }, [])
+  }, [removeNotification])
 
   return (
     <NotificationContext.Provider value={{ notifications, addNotification, removeNotification }}>

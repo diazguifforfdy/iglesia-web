@@ -18,12 +18,14 @@ export default function DonacionesAdmin() {
   const canEdit = role === 'admin' || role === 'editor'
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (!db) return
       try {
         const snap = await getDoc(doc(db, 'config', 'donaciones'))
         setCfg((snap.data() as DonacionesCfg) ?? {})
-      } catch {}
+      } catch (error) {
+        console.error('Error cargando configuración de donaciones', error)
+      }
     })()
   }, [])
 

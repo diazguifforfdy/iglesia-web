@@ -68,7 +68,7 @@ export default function Eventos() {
                 className={[
                   'rounded-lg border p-1 text-sm text-left h-20 flex flex-col',
                   isCulto
-                    ? 'bg-primary text-white ring-1 ring-gold'
+                    ? 'bg-primary text-white ring-1 ring-secondary'
                     : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100'
                 ].join(' ')}
                 title={info || undefined}
@@ -80,7 +80,7 @@ export default function Eventos() {
           })}
         </div>
         <div className="mt-4 flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-          <span className="inline-flex w-3 h-3 rounded bg-primary ring-1 ring-gold" />
+          <span className="inline-flex w-3 h-3 rounded bg-primary ring-1 ring-secondary" />
           <span>Días de culto: martes, jueves, sábado y domingo</span>
         </div>
       </div>
