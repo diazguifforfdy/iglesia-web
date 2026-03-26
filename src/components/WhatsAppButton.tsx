@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from 'react'
+import { useState } from 'react'
 import emailjs from '@emailjs/browser'
 
 export default function WhatsAppButton() {
@@ -7,7 +7,7 @@ export default function WhatsAppButton() {
   const message = encodeURIComponent('Hola, me gustaría más información sobre la iglesia')
   const href = `https://wa.me/${phone}?text=${message}`
 
-  const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setIsSending(true)
     console.log('WhatsApp button clicked, opening WhatsApp and sending email')
