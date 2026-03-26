@@ -18,15 +18,15 @@ export default function WhatsAppButton() {
     // Enviar notificación por email
     try {
       const result = await emailjs.send(
-        'service_5912zvl',
-        'template_l0v8qkq',
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           to_email: 'iglesialuzyvidadedios@gmail.com',
           from_name: 'Sitio Web Iglesia',
           message: 'Alguien inició un chat de WhatsApp desde el sitio web.',
           timestamp: new Date().toLocaleString('es-EC')
         },
-        '1Zl7t7WK7eTWZKaEw'
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       console.log('Email sent successfully:', result)
     } catch (error) {
