@@ -1,5 +1,5 @@
 import { useState, type MouseEvent } from 'react'
-import * as emailjs from '@emailjs/browser'
+import emailjs from '@emailjs/browser'
 
 export default function WhatsAppButton() {
   const [isSending, setIsSending] = useState(false)
@@ -10,13 +10,14 @@ export default function WhatsAppButton() {
   const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
     setIsSending(true)
+    console.log('WhatsApp button clicked, opening WhatsApp and sending email')
 
     // Abrir WhatsApp en nueva pestaña
     window.open(href, '_blank', 'noopener,noreferrer')
 
     // Enviar notificación por email
     try {
-      await emailjs.send(
+      const result = await emailjs.send(
         'service_5912zvl',
         'template_l0v8qkq',
         {
@@ -27,6 +28,7 @@ export default function WhatsAppButton() {
         },
         '1Zl7t7WK7eTWZKaEw'
       )
+      console.log('Email sent successfully:', result)
     } catch (error) {
       console.error('Error enviando email:', error)
     } finally {
