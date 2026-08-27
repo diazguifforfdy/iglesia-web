@@ -1,0 +1,45 @@
+name: Sincronizar videos de YouTube
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync-youtube:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Configurar credenciales de Firebase
+        env:
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+        run: |
+          printf '%s' "$FIREBASE_CREDENTIALS" > serviceAccountKey.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/serviceAccountKey.json" >> "$GITHUB_ENV"
+          chmod 600 serviceAccountKey.json
+
+      - name: Sincronizar videos de YouTube
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_PLAYLIST_ID: ${{ secrets.YOUTUBE_PLAYLIST_ID }}
+        run: npm run sync:youtube
+
+      - name: Limpiar credenciales
+        if: always()
+        run: rm -f serviceAccountKey.json
