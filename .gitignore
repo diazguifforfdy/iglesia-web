@@ -1,0 +1,19 @@
+.vercel
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment
+.env
+.env.local
+serviceAccountKey.json
+
+# Vite cache
+.vite/
+
+# Editor
+.vscode/
