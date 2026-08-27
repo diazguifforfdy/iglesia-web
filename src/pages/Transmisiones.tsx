@@ -22,6 +22,7 @@ interface YouTubeVideo {
   title: string
   thumbnail: string
   publishedAt: string
+  position: number
 }
 
 export default function Transmisiones() {
@@ -48,16 +49,16 @@ export default function Transmisiones() {
 
     const cargarVideosAnteriores = async () => {
       try {
-        const data = await getCollectionWhereOrdered('transmisiones', 'source', '==', 'youtube')
+        const data = await getCollectionWhereOrdered('transmisiones', 'source', '==', 'youtube', 'position', 'asc')
         const parsed: YouTubeVideo[] = (data as any[])
           .filter(item => item.youtubeVideoId)
-          .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime())
           .slice(0, 6)
           .map(item => ({
             id: item.youtubeVideoId,
             title: item.titulo || item.title || 'Transmisión anterior',
             thumbnail: item.thumbnail || '',
-            publishedAt: item.publishedAt || new Date().toISOString()
+            publishedAt: item.publishedAt || new Date().toISOString(),
+            position: Number(item.position)
           }))
 
         if (!cancelled) {

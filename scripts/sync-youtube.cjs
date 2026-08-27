@@ -67,6 +67,8 @@ async function sync() {
         snippet.thumbnails?.high?.url ||
         snippet.thumbnails?.medium?.url ||
         snippet.thumbnails?.default?.url || ''
+      const position = Number(snippet.position)
+      if (!Number.isInteger(position) || position < 0) continue
       const publishedAt = snippet.publishedAt || new Date().toISOString()
       const docId = `youtube_${videoId}`
 
@@ -78,6 +80,7 @@ async function sync() {
         enlaceZoom: `https://www.youtube.com/watch?v=${videoId}`,
         youtubeUrl: `https://www.youtube.com/watch?v=${videoId}`,
         thumbnail,
+        position,
         publishedAt,
         fechaInicio: Timestamp.fromDate(new Date(publishedAt)),
         activa: false,
