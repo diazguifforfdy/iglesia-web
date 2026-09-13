@@ -34,8 +34,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-white/70 backdrop-blur-md border-b border-white/30 shadow-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        <button onClick={handleHome} className="text-lg font-semibold tracking-tight text-slate-900 text-left">
-          Iglesia <span className="text-blue-600">Luz</span> y <span className="text-amber-500">Vida</span>
+        <button onClick={handleHome} className="text-left font-serif text-xl font-semibold tracking-wide text-slate-900">
+          Iglesia Cristiana <span className="text-blue-600">Luz y Vida</span> de Dios
         </button>
 
         <nav className="hidden items-center gap-6 lg:flex text-slate-700">
@@ -52,9 +52,6 @@ export default function Navbar() {
           <Link to="/oracion" className="text-sm font-medium transition hover:text-blue-600">
             Oración
           </Link>
-          <Link to="/biblia" className="text-sm font-medium transition hover:text-blue-600">
-            Biblia
-          </Link>
           <Link to="/multimedia" className="text-sm font-medium transition hover:text-blue-600">
             Multimedia
           </Link>
@@ -64,14 +61,9 @@ export default function Navbar() {
           <Link to="/sobre-nosotros" className="text-sm font-medium transition hover:text-blue-600">
             Sobre Nosotros
           </Link>
-          <a
-            href="/contacto"
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm font-medium transition hover:text-blue-600"
-          >
+          <Link to="/contacto" className="text-sm font-medium transition hover:text-blue-600">
             Contacto
-          </a>
+          </Link>
         </nav>
 
         <div className="hidden md:flex md:items-center md:gap-4">
@@ -131,9 +123,6 @@ export default function Navbar() {
             <Link to="/oracion" onClick={() => setOpen(false)} className="text-base font-medium hover:text-blue-600">
               Oración
             </Link>
-            <Link to="/biblia" onClick={() => setOpen(false)} className="text-base font-medium hover:text-blue-600">
-              Biblia
-            </Link>
             <Link to="/multimedia" onClick={() => setOpen(false)} className="text-base font-medium hover:text-blue-600">
               Multimedia
             </Link>
@@ -143,15 +132,9 @@ export default function Navbar() {
             <Link to="/sobre-nosotros" onClick={() => setOpen(false)} className="text-base font-medium hover:text-blue-600">
               Sobre Nosotros
             </Link>
-            <a
-              href="/contacto"
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setOpen(false)}
-              className="text-base font-medium hover:text-blue-600 text-left"
-            >
+            <Link to="/contacto" onClick={() => setOpen(false)} className="text-base font-medium hover:text-blue-600 text-left">
               Contacto
-            </a>
+            </Link>
           </div>
         </div>
       )}

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import type { Timestamp } from 'firebase/firestore'
+import { Quote } from 'lucide-react'
 import { getDocData, getCollectionWhereOrdered } from '../services/firestore'
 import { TRANSMISIONES_COLLECTION } from '../constants'
 import { useLiveService } from '../hooks/useLiveService'
@@ -149,43 +150,30 @@ export default function Home() {
               >
                 Petición de oración
               </a>
-              <button
-                onClick={(e) => {
-                  e.preventDefault()
-                  const el = document.getElementById('servicios')
-                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-                }}
+              <a
+                href="#horarios"
                 className="px-5 py-3 rounded border-2 border-white bg-white/10 text-white hover:bg-white/20 transition-colors font-semibold"
               >
                 Conoce nuestros horarios
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>
       </motion.section>
 
-      <section className="container py-14 bg-white">
-        <div className="grid md:grid-cols-2 gap-10">
-          <div className="p-6 rounded-lg border border-sky-200 bg-sky-50/50 shadow-sm">
-            <h3 className="text-lg font-semibold text-sky-900">Versículo del día</h3>
-            <p className="mt-2 font-display text-xl text-sky-800">{autoVerse.texto}</p>
-            <p className="text-sm text-sky-600">{autoVerse.referencia}</p>
+      {/* sección de oración movida a /oracion */}
+
+      <section className="relative z-10 -mt-20 mb-12 bg-transparent py-0 md:-mt-28 md:mb-16">
+        <div className="mx-auto w-full max-w-4xl px-4 text-center sm:px-6">
+          <div className="relative z-10 rounded-3xl border border-slate-100 bg-white p-8 shadow-2xl md:p-10 lg:p-12">
+            <Quote className="mx-auto h-12 w-12 text-slate-200" strokeWidth={1.5} aria-hidden="true" />
+            <p className="mt-6 font-serif text-2xl italic leading-relaxed text-slate-800 md:text-3xl">
+              “{autoVerse.texto}”
+            </p>
+            <p className="mt-6 font-semibold tracking-wide text-teal-600">{autoVerse.referencia}</p>
           </div>
-          {daily?.oracion && daily.oracion !== 'Próximamente' && (
-            <div className="p-6 rounded-lg border border-sky-200 bg-sky-50/50 shadow-sm">
-              <h3 className="text-lg font-semibold text-sky-900">Oración</h3>
-              <p className="mt-2 text-sky-700">{daily.oracion}</p>
-            </div>
-          )}
-          {daily?.animo && daily.animo !== 'Próximamente' && (
-            <div className="p-6 rounded-lg border border-sky-200 bg-sky-50/50 shadow-sm">
-              <h3 className="text-lg font-semibold text-sky-900">Mensaje de ánimo</h3>
-              <p className="mt-2 text-sky-700">{daily.animo}</p>
-            </div>
-          )}
         </div>
       </section>
-      {/* sección de oración movida a /oracion */}
 
       <section id="servicios" className="container py-14 bg-sky-50 scroll-mt-20">
         <motion.h2
@@ -328,6 +316,25 @@ export default function Home() {
               </div>
               <h3 className="text-lg font-semibold text-sky-900 mb-2">Himnarios</h3>
               <p className="text-sm text-sky-600">Biblioteca de himnarios y cancioneros en PDF</p>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="bg-white rounded-xl p-6 shadow-lg border border-sky-200 hover:shadow-xl transition-all duration-300 group col-span-full md:col-span-1"
+          >
+            <Link to="/biblia" className="text-center block">
+              <div className="w-12 h-12 bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a2 2 0 012-2h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7h8M8 11h8M8 15h5" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold text-sky-900 mb-2">Biblia RV1960</h3>
+              <p className="text-sm text-sky-600">Explora y busca en la Palabra de Dios</p>
             </Link>
           </motion.div>
         </div>

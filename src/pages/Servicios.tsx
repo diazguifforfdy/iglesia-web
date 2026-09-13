@@ -52,6 +52,13 @@ const services = [
     icon: Library,
     description: 'Biblioteca de himnarios y cancioneros en PDF para la adoración personal y congregacional.',
     details: 'Accede y descarga nuestra colección de himnarios y cancioneros en formato PDF, alojados en Google Drive.'
+  },
+  {
+    id: 'biblia',
+    title: 'Biblia RV1960',
+    icon: BookOpen,
+    description: 'Explora y busca en la Palabra de Dios',
+    details: 'Consulta las Escrituras, encuentra frases y continúa tu lectura desde cualquier dispositivo.'
   }
 ]
 
@@ -82,7 +89,8 @@ const DEDICATED_ROUTES: Record<string, { to: string; label: string }> = {
   alabanzas: { to: '/servicios/alabanzas', label: 'Ver Alabanzas' },
   multimedia: { to: '/multimedia', label: 'Ver Multimedia' },
   mensajes: { to: '/mensajes', label: 'Ver Mensajes' },
-  himnarios: { to: '/servicios/himnarios', label: 'Ver Himnarios' }
+  himnarios: { to: '/servicios/himnarios', label: 'Ver Himnarios' },
+  biblia: { to: '/biblia', label: 'Abrir Biblia' }
 }
 
 export default function Servicios() {
